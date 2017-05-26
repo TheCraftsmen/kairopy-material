@@ -18,17 +18,22 @@ class App extends React.Component {
 
 	constructor(props) {
     	super(props);
-    	this.state = {open: false, like: false};
+    	this.state = {openMenu: false, like: false, message: ''};
     	this.handleToggle = this.handleToggle.bind(this);
     	this.sendLike = this.sendLike.bind(this);
   	}
 
   	handleToggle(){
-  		this.setState({open: !this.state.open});	
+  		this.setState({openMenu: true, like: false});	
   	} 
 
-  	sendLike(){
-  		this.setState({like: !this.state.like});	
+  	closeMenu(){
+  		this.setState({openMenu: false,like: false});
+  	}
+
+  	sendLike(e){
+  		console.log(e);
+  		this.setState({like: true, message: e});	
   	} 
 
   	render(){
@@ -36,14 +41,14 @@ class App extends React.Component {
   			<MuiThemeProvider>
 		    <div>
 		    <AppBar
-		    onLeftIconButtonTouchTap={this.handleToggle}
+		    onLeftIconButtonTouchTap={ () => this.handleToggle() }
     		title="kairopy.com"
     		iconClassNameRight="muidocs-icon-navigation-expand-more"
   			/>
 		    <Drawer 
-		    open={this.state.open} 
+		    open={this.state.openMenu} 
 		    docked={false}
-		    onRequestChange={(open) => this.setState({open})} >
+		    onRequestChange={ () => this.closeMenu() } >
 		        <MenuItem>Iniciar sesion</MenuItem>
 		        <MenuItem>Obtener post</MenuItem>
 		        <MenuItem>Tutorial</MenuItem>
@@ -52,62 +57,62 @@ class App extends React.Component {
 
 		    <List>
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Brendan Lim")}
 		        primaryText="Brendan Lim"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Eric Hoffman")}
 		        primaryText="Eric Hoffman"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Grace Ng")}
 		        primaryText="Grace Ng"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Kerem Suer")}
 		        primaryText="Kerem Suer"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Raquel Parrado")}
 		        primaryText="Raquel Parrado"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		        
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Brendan Lim")}
 		        primaryText="Brendan Lim"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Eric Hoffman")}
 		        primaryText="Eric Hoffman"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Grace Ng")}
 		        primaryText="Grace Ng"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Kerem Suer")}
 		        primaryText="Kerem Suer"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
 		      />
 		      <ListItem
-		      	onTouchTap={this.sendLike}
+		      	onTouchTap={() => this.sendLike("Raquel Parrado")}
 		        primaryText="Raquel Parrado"
 		        secondaryText="bla bla bla bla"
 		        leftAvatar={<Avatar src="http://placehold.it/350x350" />}
@@ -117,8 +122,8 @@ class App extends React.Component {
 
 		    <Snackbar
           	open={this.state.like}
-          	message="Event added to your calendar"
-          	autoHideDuration={4000}
+          	message={this.state.message}
+          	autoHideDuration={3000}
           	onRequestClose={this.handleRequestClose}
         	/>
 		    </div>
