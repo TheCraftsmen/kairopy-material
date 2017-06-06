@@ -14,24 +14,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import  banner from './banner.png'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
-var Calendar = require("react-material-calender");
 import './App.css'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-
-var events = [{
-            "type": "Published",
-            "start": "2016-01-16T11:00:00.000Z",
-            "title": "Meeting",
-            "content": "Board meeting"
-            }, {
-            "type": "Activated",
-            "start": "2016-01-17T12:00:00.000Z",
-            "title": "Interview",
-            "content": "with job seeker"
-}];
 
 class App extends React.Component {
 
@@ -115,7 +102,7 @@ class App extends React.Component {
 	componentDidMount() {
 		window.fbAsyncInit = () => {
 		  window.FB.init({
-		    appId      : '676016059250186',
+		    appId      : '<user-id>',
 		    xfbml      : true,
 		    version    : 'v2.9'
 		  });
@@ -256,7 +243,6 @@ class App extends React.Component {
           	autoHideDuration={4000}
           	onRequestClose={() => this.closeSnackbar() }
         	/>
-        	<Calendar data={events}/>
 		    </div>
 		  </MuiThemeProvider>	
   		)
