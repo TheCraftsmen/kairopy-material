@@ -19,3 +19,10 @@ h1{
 .center{
 	text-align: left;
 }
+
+
+.shiftdays{
+	display: inline-block;
+	border: 10px solid grey;
+	width: 220px;
+}
