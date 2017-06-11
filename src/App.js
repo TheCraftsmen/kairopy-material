@@ -158,8 +158,11 @@ class App extends React.Component {
 		    	{ this.props.user.login_status ? 
 		    		<MenuItem onTouchTap={ () => this.logOut()} >Cerrar sesión</MenuItem> : 
 		    		<MenuItem onTouchTap={() => this.loginUser()} >Iniciar sesión</MenuItem> }
+		    	<a style={ { textDecorationLine : 'none' } } href="#/ShiftSystem">
+		        	<MenuItem >Turnos programados</MenuItem>
+		        </a>
 		        <a style={ { textDecorationLine : 'none' } } target="_blank" href="https://www.facebook.com/kairopy">
-		        	<MenuItem >Página  Oficial</MenuItem>
+		        	<MenuItem >Página oficial</MenuItem>
 		        </a>
 		        
 		    </Drawer>
