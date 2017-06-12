@@ -1,23 +1,11 @@
 /* eslint-disable */
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
-import Avatar from 'material-ui/Avatar';
-import Snackbar from 'material-ui/Snackbar';
 import {List, ListItem} from 'material-ui/List';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import  banner from './banner.png'
-import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
-import Toggle from 'material-ui/Toggle';
-import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
 import Dialog from 'material-ui/Dialog';
@@ -60,6 +48,27 @@ class ShiftSystem extends React.Component{
             onTouchTap={() => this.handleClose()}
           />,
         ];
+        var frdy = new Date();
+        if(frdy.getDay() > 0)
+          frdy.setDate(frdy.getDate() - frdy.getDay());
+        
+        var scdy = new Date(frdy.getTime());
+        scdy.setDate(scdy.getDate() + 1);
+        
+        var trdy = new Date(frdy.getTime());
+        trdy.setDate(trdy.getDate() + 2);
+        
+        var crdy = new Date(frdy.getTime());
+        crdy.setDate(crdy.getDate() + 3);
+        
+        var qtdy = new Date(frdy.getTime());
+        qtdy.setDate(qtdy.getDate() + 4);
+        
+        var sxdy = new Date(frdy.getTime());
+        sxdy.setDate(sxdy.getDate() + 5);
+        
+        var spdy = new Date(frdy.getTime());
+        spdy.setDate(spdy.getDate() + 6);
         return(
             <MuiThemeProvider>  
             <div>
@@ -79,7 +88,7 @@ class ShiftSystem extends React.Component{
                       <TimePicker hintText="Horario" id="dialog-time" format="24hr"/>
                     </Dialog>
                     <List style={style}>
-                        <Subheader>Domingo 11</Subheader>
+                        <Subheader>Domingo {frdy.getDate()}</Subheader>
                         <ListItem
                           primaryText="14:30hs - Cliente Uno"
                           secondaryText="Necesidad principal"
@@ -90,7 +99,7 @@ class ShiftSystem extends React.Component{
                         />
                     </List>
                     <List style={style}>
-                        <Subheader>Lunes 12
+                        <Subheader>Lunes {scdy.getDate()}
                         </Subheader>
                         <ListItem
                           primaryText="Profile photo"
@@ -102,7 +111,7 @@ class ShiftSystem extends React.Component{
                         />
                     </List>
                     <List style={style}>
-                        <Subheader>Martes 13</Subheader>
+                        <Subheader>Martes {trdy.getDate()}</Subheader>
                         <ListItem
                           primaryText="Profile photo"
                           secondaryText="Change your Google+ profile photo"
@@ -113,7 +122,7 @@ class ShiftSystem extends React.Component{
                         />
                     </List>
                     <List style={style}>
-                        <Subheader>Miercoles 14</Subheader>
+                        <Subheader>Miercoles {crdy.getDate()}</Subheader>
                         <ListItem
                           primaryText="Profile photo"
                           secondaryText="Change your Google+ profile photo"
@@ -124,7 +133,7 @@ class ShiftSystem extends React.Component{
                         />
                     </List>
                     <List style={style}>
-                        <Subheader>Jueves 15</Subheader>
+                        <Subheader>Jueves {qtdy.getDate()}</Subheader>
                         <ListItem
                           primaryText="Profile photo"
                           secondaryText="Change your Google+ profile photo"
@@ -135,7 +144,7 @@ class ShiftSystem extends React.Component{
                         />
                     </List>
                     <List style={style}>
-                        <Subheader>Viernes 16</Subheader>
+                        <Subheader>Viernes {sxdy.getDate()}</Subheader>
                         <ListItem
                           primaryText="Profile photo"
                           secondaryText="Change your Google+ profile photo"
@@ -146,7 +155,7 @@ class ShiftSystem extends React.Component{
                         />
                     </List>
                     <List style={style}>
-                        <Subheader>Sabado 17</Subheader>
+                        <Subheader>Sabado {spdy.getDate()}</Subheader>
                         <ListItem
                           primaryText="Profile photo"
                           secondaryText="Change your Google+ profile photo"
