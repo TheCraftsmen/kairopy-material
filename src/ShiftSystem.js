@@ -11,6 +11,7 @@ import DatePicker from 'material-ui/DatePicker';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 import './App.css'
 // Needed for onTouchTap
@@ -24,7 +25,7 @@ class ShiftSystem extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {open: false};
+        this.state = {open: false, position: 0};
     }
 
     handleOpen() {
@@ -39,6 +40,14 @@ class ShiftSystem extends React.Component{
         this.setState({open: false});
     };
 
+    setLastWeek(){
+      this.setState({position: this.state.position - 7})
+    }
+
+    setNextWeek(){
+      this.setState({position: this.state.position + 7})
+    }
+
     render(){
         const actions = [
           <FlatButton
@@ -50,8 +59,7 @@ class ShiftSystem extends React.Component{
         ];
         var frdy = new Date();
         if(frdy.getDay() > 0)
-          frdy.setDate(frdy.getDate() - frdy.getDay());
-        
+          frdy.setDate(frdy.getDate() - frdy.getDay() + this.state.position);
         var scdy = new Date(frdy.getTime());
         scdy.setDate(scdy.getDate() + 1);
         
@@ -74,9 +82,18 @@ class ShiftSystem extends React.Component{
             <div>
                     <AppBar
                         className={"kairopy"}
-                        title="Asignacion de Turno"
+                        title="kairopy.com"
                         iconElementRight={<FlatButton onTouchTap={() => this.handleOpen()} label="Agregar" />}
                     />
+                    <Toolbar>
+                      <ToolbarGroup>
+                        <ToolbarTitle text={"Semana del " + frdy.getDate() + "/" + frdy.getMonth() + "/" + frdy.getFullYear() + " al " + spdy.getDate() + "/" + spdy.getMonth() + "/" + frdy.getFullYear()} />
+                      </ToolbarGroup>
+                      <ToolbarGroup>
+                        <RaisedButton onTouchTap={() => this.setLastWeek()} label="anterior" />
+                        <RaisedButton onTouchTap={() => this.setNextWeek()} label="siguiente" />
+                      </ToolbarGroup>
+                    </Toolbar>
                     <Dialog
                       title="Nuevo turno"
                       actions={actions}
