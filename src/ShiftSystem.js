@@ -11,6 +11,7 @@ import DatePicker from 'material-ui/DatePicker';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
+import { saveCalendarEvent } from './actions';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 import './App.css'
@@ -36,7 +37,13 @@ class ShiftSystem extends React.Component{
         let text = document.getElementById('dialog-text').value;
         let date = document.getElementById('dialog-date').value;
         let time = document.getElementById('dialog-time').value;
-        console.log(text, date, time);
+        let eventDate = new Date(date)
+        eventDate.setDate(eventDate.getDate() + 1)
+        this.props.saveCalendarEvent({
+          text: text,
+          date: eventDate,
+          time: time
+        })
         this.setState({open: false});
     };
 
@@ -58,25 +65,60 @@ class ShiftSystem extends React.Component{
           />,
         ];
         var frdy = new Date();
-        if(frdy.getDay() > 0)
-          frdy.setDate(frdy.getDate() - frdy.getDay() + this.state.position);
+        frdy.setDate(frdy.getDate() - frdy.getDay() + this.state.position);
+        
         var scdy = new Date(frdy.getTime());
-        scdy.setDate(scdy.getDate() + 1);
-        
         var trdy = new Date(frdy.getTime());
-        trdy.setDate(trdy.getDate() + 2);
-        
         var crdy = new Date(frdy.getTime());
-        crdy.setDate(crdy.getDate() + 3);
-        
         var qtdy = new Date(frdy.getTime());
-        qtdy.setDate(qtdy.getDate() + 4);
-        
         var sxdy = new Date(frdy.getTime());
-        sxdy.setDate(sxdy.getDate() + 5);
-        
         var spdy = new Date(frdy.getTime());
+        
+        scdy.setDate(scdy.getDate() + 1);
+        trdy.setDate(trdy.getDate() + 2);
+        crdy.setDate(crdy.getDate() + 3);
+        qtdy.setDate(qtdy.getDate() + 4);
+        sxdy.setDate(sxdy.getDate() + 5);
         spdy.setDate(spdy.getDate() + 6);
+
+        var firstDayEvents = [];
+        var secondDayEvents = [];
+        var thirdDayEvents = [];
+        var fourthDayEvents = [];
+        var fifthDayEvents = [];
+        var sixhtDayEvents = [];
+        var seventhDayEvents = [];
+
+        for (var i = this.props.events.length - 1; i >= 0; i--) {
+          let event = this.props.events[i];
+          console.log(event);
+          switch(event.date.toDateString()){
+            case frdy.toDateString():
+              firstDayEvents.push(event);
+              break;
+            case scdy.toDateString():
+              secondDayEvents.push(event);
+              break;
+            case trdy.toDateString():
+              thirdDayEvents.push(event);
+              break;
+            case crdy.toDateString():
+              fourthDayEvents.push(event);
+              break;
+            case qtdy.toDateString():
+              fifthDayEvents.push(event);
+              break;
+            case sxdy.toDateString():
+              sixhtDayEvents.push(event);
+              break;
+            case spdy.toDateString():
+              seventhDayEvents.push(event);
+              break;
+          }
+
+
+        }
+
         return(
             <MuiThemeProvider>  
             <div>
@@ -87,7 +129,7 @@ class ShiftSystem extends React.Component{
                     />
                     <Toolbar>
                       <ToolbarGroup>
-                        <ToolbarTitle text={"Semana del " + frdy.getDate() + "/" + frdy.getMonth() + "/" + frdy.getFullYear() + " al " + spdy.getDate() + "/" + spdy.getMonth() + "/" + frdy.getFullYear()} />
+                        <ToolbarTitle text={"Semana del " + frdy.getDate() + "/" + (frdy.getMonth() + 1)  + "/" + frdy.getFullYear() + " al " + spdy.getDate() + "/" + (spdy.getMonth() + 1)  + "/" + frdy.getFullYear()} />
                       </ToolbarGroup>
                       <ToolbarGroup>
                         <RaisedButton onTouchTap={() => this.setLastWeek()} label="anterior" />
@@ -106,81 +148,31 @@ class ShiftSystem extends React.Component{
                     </Dialog>
                     <List style={style}>
                         <Subheader>Domingo {frdy.getDate()}</Subheader>
-                        <ListItem
-                          primaryText="14:30hs - Cliente Uno"
-                          secondaryText="Necesidad principal"
-                        />
-                        <ListItem
-                          primaryText="15:30hs - Cliente Dos"
-                          secondaryText="Necesidad principal"
-                        />
+                        { firstDayEvents.map( event  => <ListItem primaryText={event.date.toDateString()} secondaryText={event.text} />) }
                     </List>
                     <List style={style}>
-                        <Subheader>Lunes {scdy.getDate()}
-                        </Subheader>
-                        <ListItem
-                          primaryText="Profile photo"
-                          secondaryText="Change your Google+ profile photo"
-                        />
-                        <ListItem
-                          primaryText="Show your status"
-                          secondaryText="Your status is visible to everyone you use with"
-                        />
+                        <Subheader>Lunes {scdy.getDate()}</Subheader>
+                        { secondDayEvents.map( event  => <ListItem primaryText={event.date.toDateString()} secondaryText={event.text} />) }
                     </List>
                     <List style={style}>
                         <Subheader>Martes {trdy.getDate()}</Subheader>
-                        <ListItem
-                          primaryText="Profile photo"
-                          secondaryText="Change your Google+ profile photo"
-                        />
-                        <ListItem
-                          primaryText="Show your status"
-                          secondaryText="Your status is visible to everyone you use with"
-                        />
+                        { thirdDayEvents.map( event  => <ListItem primaryText={event.date.toDateString()} secondaryText={event.text} />) }
                     </List>
                     <List style={style}>
                         <Subheader>Miercoles {crdy.getDate()}</Subheader>
-                        <ListItem
-                          primaryText="Profile photo"
-                          secondaryText="Change your Google+ profile photo"
-                        />
-                        <ListItem
-                          primaryText="Show your status"
-                          secondaryText="Your status is visible to everyone you use with"
-                        />
+                        { fourthDayEvents.map( event  => <ListItem primaryText={event.date.toDateString()} secondaryText={event.text} />) }
                     </List>
                     <List style={style}>
                         <Subheader>Jueves {qtdy.getDate()}</Subheader>
-                        <ListItem
-                          primaryText="Profile photo"
-                          secondaryText="Change your Google+ profile photo"
-                        />
-                        <ListItem
-                          primaryText="Show your status"
-                          secondaryText="Your status is visible to everyone you use with"
-                        />
+                        { fifthDayEvents.map( event  => <ListItem primaryText={event.date.toDateString()} secondaryText={event.text} />) }
                     </List>
                     <List style={style}>
                         <Subheader>Viernes {sxdy.getDate()}</Subheader>
-                        <ListItem
-                          primaryText="Profile photo"
-                          secondaryText="Change your Google+ profile photo"
-                        />
-                        <ListItem
-                          primaryText="Show your status"
-                          secondaryText="Your status is visible to everyone you use with"
-                        />
+                        { sixhtDayEvents.map( event  => <ListItem primaryText={event.date.toDateString()} secondaryText={event.text} />) }
                     </List>
                     <List style={style}>
                         <Subheader>Sabado {spdy.getDate()}</Subheader>
-                        <ListItem
-                          primaryText="Profile photo"
-                          secondaryText="Change your Google+ profile photo"
-                        />
-                        <ListItem
-                          primaryText="Show your status"
-                          secondaryText="Your status is visible to everyone you use with"
-                        />
+                        { seventhDayEvents.map( event  => <ListItem primaryText={event.date.toDateString} secondaryText={event.text} />) }
                     </List>
             </div>
                       
@@ -190,4 +182,4 @@ class ShiftSystem extends React.Component{
 }
 
 
-export default connect( state => state, {})(ShiftSystem);
+export default connect( state => state, {saveCalendarEvent})(ShiftSystem);

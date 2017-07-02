@@ -4,6 +4,7 @@ const GET_FEED = 'GET_FEED';
 const PAGE_TOKEN = 'PAGE_TOKEN';
 const CLEAN_POST = 'CLEAN_POST';
 const LOGOUT_USER = 'LOGOUT_USER';
+const NEW_CALENDAR_EVENT = 'NEW_CALENDAR_EVENT';
 
 export function loginIn(){
   return dispatch => {
@@ -52,4 +53,11 @@ export function cleanPost(feed_id){
 }
 
 
-
+export function saveCalendarEvent(event){
+  return dispatch => {
+    dispatch({
+      type: NEW_CALENDAR_EVENT,
+      event: event
+    })
+  }
+}

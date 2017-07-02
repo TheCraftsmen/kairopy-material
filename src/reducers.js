@@ -7,6 +7,7 @@ const GET_FEED = 'GET_FEED';
 const PAGE_TOKEN = 'PAGE_TOKEN';
 const CLEAN_POST = 'CLEAN_POST';
 const LOGOUT_USER = 'LOGOUT_USER';
+const NEW_CALENDAR_EVENT = 'NEW_CALENDAR_EVENT';
 
 const user_data = {
   login_status: false,
@@ -49,6 +50,16 @@ const posts = (state = {}, action) => {
   }
 };
 
+const events = (state = [], action) => {
+  switch(action.type){
+    case NEW_CALENDAR_EVENT:
+      state.push(action.event)
+      return state
+    default:
+      return state;
+  }
+};
 
-const reducer = combineReducers({posts, user, routing: routerReducer});
+
+const reducer = combineReducers({posts, user, events, routing: routerReducer});
 export default reducer;
